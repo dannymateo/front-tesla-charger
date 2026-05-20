@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  color: #ffffff;
+  background: #000000;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgb(232 33 39 / 0.35);
+  color: #ffffff;
+}
+
+.glass-panel {
+  border-radius: 1rem;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background: rgb(23 23 23 / 0.8);
+  backdrop-filter: blur(24px);
+}
+
+.tesla-heading {
+  font-size: 1.875rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+.tesla-subheading {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #737373;
+}
+
+.leaflet-container {
+  background: #0a0a0a !important;
+  z-index: 0 !important;
+  height: 100% !important;
+}
+
+.leaflet-control-attribution {
+  font-size: 10px;
+  background: rgb(0 0 0 / 0.6) !important;
+  color: #737373 !important;
+}
+
+.station-marker-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.station-marker-dot {
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: 2.5px solid var(--marker-border-color, #34c759);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.station-marker-logo {
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.station-marker-dot--selected {
+  transform: scale(1.12);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
+}
+
+.station-marker-dot--picker {
+  --marker-border-color: #34c759;
+  box-shadow: 0 0 14px rgba(52, 199, 89, 0.35);
+  cursor: grab;
+}
+
+.station-marker-dot--picker:active {
+  cursor: grabbing;
+}
+
+@keyframes tesla-loader-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tesla-loader-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes tesla-loader-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.tesla-loader-logo {
+  animation: tesla-loader-reveal 0.7s ease-out both;
+}
+
+.tesla-loader-tagline {
+  animation: tesla-loader-reveal 0.7s ease-out 0.15s both;
+}
+
+.tesla-loader-bar {
+  width: 45%;
+  animation: tesla-loader-bar 1.4s ease-in-out infinite;
+}
+
+.tesla-loader-status {
+  animation: tesla-loader-pulse 1.8s ease-in-out infinite;
+}
