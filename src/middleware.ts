@@ -3,6 +3,7 @@ import { AUTH_COOKIE, getRoleHomePath } from "@/lib/constants";
 import type { JwtPayload, UserRole } from "@/lib/types";
 
 const publicPaths = ["/login", "/register", "/payment/success", "/payment/cancel"];
+const guestOnlyPaths = ["/login", "/register"];
 
 function decodeJwtPayload(token: string): JwtPayload | null {
   try {
@@ -21,6 +22,7 @@ export async function middleware(request: NextRequest) {
   const token = request.cookies.get(AUTH_COOKIE)?.value;
 
   const isPublic = publicPaths.some((p) => pathname.startsWith(p));
+  const isGuestOnly = guestOnlyPaths.some((p) => pathname.startsWith(p));
   const isRoot = pathname === "/";
 
   if (isRoot) {
@@ -34,7 +36,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (isPublic) {
-    if (token) {
+    if (token && isGuestOnly) {
       const payload = decodeJwtPayload(token);
       if (payload?.role) {
         return NextResponse.redirect(new URL(getRoleHomePath(payload.role), request.url));
